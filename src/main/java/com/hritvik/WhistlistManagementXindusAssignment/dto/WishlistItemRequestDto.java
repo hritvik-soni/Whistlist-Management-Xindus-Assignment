@@ -15,4 +15,7 @@ public class WishlistItemRequestDto {
     private String name;
     private String description;
     private double price;
+
+    public WishlistItemRequestDto(String itemName, String itemDescription) {
+    }
 }

@@ -3,8 +3,10 @@ package com.hritvik.WhistlistManagementXindusAssignment.service;
 import com.hritvik.WhistlistManagementXindusAssignment.dto.ApiResponse;
 import com.hritvik.WhistlistManagementXindusAssignment.dto.UserRequestDto;
 import com.hritvik.WhistlistManagementXindusAssignment.dto.UserUpdateRequestDto;
+import com.hritvik.WhistlistManagementXindusAssignment.dto.WishlistItemResponseDto;
 import com.hritvik.WhistlistManagementXindusAssignment.model.Users;
 import com.hritvik.WhistlistManagementXindusAssignment.repository.UserRepository;
+import com.hritvik.WhistlistManagementXindusAssignment.repository.WishlistItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,11 @@ public class UserService {
     PasswordEncoder passwordEncoder;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    WishlistItemRepository wishlistItemRepository;
+
+    public UserService(UserRepository userRepository, WishlistItemRepository wishlistItemRepository) {
+    }
 
     /**
      * Creates a new user based on the provided user request DTO
@@ -56,7 +63,7 @@ public class UserService {
         Optional<Users> user = userRepository.findByUserName(username);
         // If user is not found, return 404
         if (user.isEmpty()) {
-            return new ResponseEntity<>(new ApiResponse(false, "User not found"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ApiResponse(false, "User not found"), HttpStatus.BAD_REQUEST);
         }
         // Update address if provided
         if (userUpdateDto.getAddress() != null) {
@@ -84,9 +91,10 @@ public class UserService {
 
         // If user not found, return not found response
         if (user.isEmpty()) {
-            return new ResponseEntity<>(new ApiResponse(false, "User not found"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ApiResponse(false, "User not found"), HttpStatus.BAD_REQUEST);
         }
-
+        // Delete all wishlist items associated with the user
+         wishlistItemRepository.deleteAll(wishlistItemRepository.findByUserId(user.get().getId()));
         // Delete the user and return success response
         userRepository.delete(user.get());
         return new ResponseEntity<>(new ApiResponse(true, "User deleted successfully"), HttpStatus.OK);
@@ -104,6 +112,6 @@ public class UserService {
 
         // Return ResponseEntity with user information if found, or not found message if not found
         return user.map(users -> new ResponseEntity<>(new ApiResponse(true, users), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(new ApiResponse(false, "User not found"), HttpStatus.NOT_FOUND));
+                .orElseGet(() -> new ResponseEntity<>(new ApiResponse(false, "User not found"), HttpStatus.BAD_REQUEST));
     }
 }

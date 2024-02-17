@@ -23,7 +23,7 @@ public class JwtUtil {
 
 
     public String extractUsername(String token) {
-        System.out.println("extracting username");
+
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -32,13 +32,12 @@ public class JwtUtil {
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        System.out.println("extracting claim");
+
         final Claims claims = (Claims) extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
     private Object extractAllClaims(String token) {
-        System.out.println("extracting all claims");
 
         return Jwts
                 .parserBuilder()
@@ -78,31 +77,4 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-
-//
-//      return Jwts
-//              .parserBuilder()
-//              .setSigningKey(getSignKey())
-//            .build()
-//                    .parseClaimsJws(token)
-//                    .getBody();
-//
-//} catch (MalformedJwtException ex) {
-//        System.out.println("Invalid JWT token");
-//            throw new RuntimeException("Invalid JWT token");
-//        } catch (ExpiredJwtException ex) {
-//        System.out.println("Expired JWT token");
-//            throw new RuntimeException("Expired JWT token");
-//
-//        } catch (UnsupportedJwtException ex) {
-//        System.out.println("Unsupported JWT token");
-//            throw new RuntimeException("Unsupported JWT token");
-//
-//        } catch (IllegalArgumentException ex) {
-//        System.out.println("JWT claims string is empty");
-//        } catch (SignatureException ex) {
-//        System.out.println("Invalid JWT signature");
-//            throw new RuntimeException("Invalid JWT signature");
-//        }
-//                return claims;
 }

@@ -26,4 +26,6 @@ public class WishlistItem {
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;
 
+    public WishlistItem(int i, String test, String test1, double v) {
+    }
 }
