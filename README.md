@@ -22,7 +22,7 @@ This project is a backend solution for an e-commerce platform's wishlist managem
 
 To run the application locally, follow these steps:
 
-1. Clone the repository: `git clone <repository-url>`
+1. Clone the repository: `git clone https://github.com/hritvik-soni/Whistlist-Management-Xindus-Assignment`
 2. Navigate to the project directory: `cd wishlist-management-backend`
 3. Set up Database in application.properties 
 4. Build the project: `./mvnw clean package`
