@@ -48,7 +48,7 @@ For running unit tests:
         "address": "user address"
       }
       ```
-    - Response: User details with authentication token.
+    - Response: User Register Successfully.
 
 - `POST /api/auth/signin`: Log in an existing user.
     - Request Payload:
@@ -58,7 +58,7 @@ For running unit tests:
         "password": "password123"
       }
       ```
-    - Response: User details with authentication token.
+    - Response: Authentication token.
 
 ### Wishlist Management
 
@@ -78,7 +78,23 @@ For running unit tests:
 
 - `DELETE /api/wishlists/{id}`: Remove an item from the wishlist by ID.
     - Requires authentication token in the header.
+### User Management
 
+- `GET /api/users`: Retrieve user's profile information.
+    - Requires authentication token in the header.
+
+- `PUT /api/users`: Update user's profile information.
+    - Request Payload:
+      ```json
+      {
+        "phoneNumber": "1234567890",
+        "address": "123 Main St, City, Country"
+      }
+      ```
+    - Requires authentication token in the header.
+
+- `DELETE /api/users`: Delete user's account.
+    - Requires authentication token in the header.
 ## Technologies Used
 
 - Java

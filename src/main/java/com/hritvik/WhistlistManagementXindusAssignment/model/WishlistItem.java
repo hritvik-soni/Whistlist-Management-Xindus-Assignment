@@ -19,8 +19,6 @@ public class WishlistItem {
 
     @Column(nullable = false)
     private String name;
-
-
     private String description;
     private double price;
 

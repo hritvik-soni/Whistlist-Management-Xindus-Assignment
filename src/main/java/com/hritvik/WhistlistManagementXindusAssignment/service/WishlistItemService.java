@@ -51,6 +51,7 @@ public class WishlistItemService {
             WishlistItemResponseDto wishlistItemResponseDto = new WishlistItemResponseDto();
             wishlistItemResponseDto.setDescription(wishlistItem.getDescription());
             wishlistItemResponseDto.setName(wishlistItem.getName());
+            wishlistItemResponseDto.setPrice(wishlistItem.getPrice());
             wishlistItemResponseDto.setUserName(username);
             return wishlistItemResponseDto;
         }).toList();
@@ -80,6 +81,7 @@ public class WishlistItemService {
         // Set the description and name of the wishlist item from the request body
         wishlistItem.setDescription(wishlistItemDto.getDescription());
         wishlistItem.setName(wishlistItemDto.getName());
+        wishlistItem.setPrice(wishlistItemDto.getPrice());
 
         // Set the user for the wishlist item
         wishlistItem.setUser(userOptional.get());
